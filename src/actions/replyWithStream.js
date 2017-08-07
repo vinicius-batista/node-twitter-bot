@@ -17,6 +17,7 @@ module.exports = function (Twitter) {
             let stream = Twitter.stream('statuses/filter', params);
 
             stream.on('tweet', function (event) {
+                //All tags for search in this case start with !
                 let indice = event.text.indexOf('!');
                 let track = event.text.slice(indice);
                 
