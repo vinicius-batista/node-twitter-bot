@@ -1,15 +1,18 @@
 const config = require('./config');
 const twit = require('twit');
 const mongoose = require('mongoose');
+const retweet = require('./src/actions/retweet');
+const replyWithStream =  require('./src/actions/replyWithStream');
 
-let Twiiter = new twit(config);
+
+const Twiiter = new twit(config);
 
 mongoose.Promise = global.Promise;
-let db = mongoose.connect(process.env.PROD_MONGODB).connection;
+const db = mongoose.connect(process.env.PROD_MONGODB).connection;
 
-db.on('open',function () {
-    require('./src/actions/retweet')(Twiiter);
-    require('./src/actions/replyWithStream')(Twiiter);
+db.on('open', () => {
+    retweet(Twiiter);
+    replyWithStream(Twiiter);
 });
 
 

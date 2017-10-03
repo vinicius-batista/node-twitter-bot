@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-let Retweet = mongoose.Schema({
+const Retweet = mongoose.Schema({
     params:{
         type: String,
         required: true

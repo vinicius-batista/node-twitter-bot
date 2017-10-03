@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-let Reply = new mongoose.Schema({
+const Reply = new mongoose.Schema({
     track:{
         type: String,
         required: true
