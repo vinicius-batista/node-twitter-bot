@@ -8,12 +8,15 @@ const replyWithStream =  require('./src/actions/replyWithStream');
 const Twiiter = new twit(config);
 
 mongoose.Promise = global.Promise;
-const db = mongoose.connect(process.env.PROD_MONGODB).connection;
 
-db.on('open', () => {
-    retweet(Twiiter);
-    replyWithStream(Twiiter);
-});
-
+mongoose
+    .connect(process.env.PROD_MONGODB, {
+    useMongoClient: true
+    })
+    .then(() => {
+        retweet(Twiiter);
+        replyWithStream(Twiiter);
+    })
+    .catch(err => err);
 
 module.exports = Twiiter;

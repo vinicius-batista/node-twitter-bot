@@ -11,7 +11,17 @@ const retweetModule = (Twitter) => {
                     lang: 'en'
                 };
                 
-                params.q += retweets.map( retweet => retweet.params);
+                retweets.forEach((retweet, index) => {
+                   
+                    if(index === 0){
+                        params.q = retweet.params;
+                    }
+                    
+                    else{
+                        params.q.concat(retweet.params);
+                    }
+                    
+                });
                 
                 Twitter
                     .get('search/tweets', params)

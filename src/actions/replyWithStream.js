@@ -2,16 +2,21 @@ const Reply = require('./../schemas/reply');
 
 const replyWithStreamModule = (Twitter) => {
     Reply
-        .find({
-            enable: true
-        })
+        .find()
         .then( (replys) => {
             let params = {
                 track: 'to:TwinPeaksBotNew',
                 result: 'recent'
             };
             
-            params.track += replys.map(reply => ', ' + reply.track);
+            replys.forEach((reply)=>{
+                
+                const trackToConcat = ', ' + reply.track;
+                params.track = params.track + trackToConcat;
+                
+            });
+            
+            console.log(params);
             
             let stream = Twitter.stream('statuses/filter', params);
             
@@ -49,4 +54,4 @@ const replyWithStreamModule = (Twitter) => {
         .catch(err => err);
 };
 
-module.exports =  replyWithStreamModule;
+module.exports = replyWithStreamModule;
