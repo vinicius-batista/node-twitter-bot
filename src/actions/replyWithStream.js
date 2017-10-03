@@ -16,8 +16,6 @@ const replyWithStreamModule = (Twitter) => {
                 
             });
             
-            console.log(params);
-            
             let stream = Twitter.stream('statuses/filter', params);
             
             stream.on('tweet',  (event) => {
